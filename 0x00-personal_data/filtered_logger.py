@@ -2,7 +2,7 @@
 """
 Managing user data
 """
-from typing import List, Tuple
+from typing import List
 import logging
 import re
 
@@ -34,13 +34,13 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ';'
 
-    def __init__(self, fields):
+    def __init__(self, fields: List[str]):
         """ Initialize
         parameters:
-        - fields Tuple(str): List of strings
+        - fields List[str]: List of strings
         """
         super(RedactingFormatter, self).__init__(self.FORMAT)
-        self.fields = list(fields)
+        self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
         """
