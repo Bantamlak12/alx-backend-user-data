@@ -35,15 +35,19 @@ def filter_datum(fields: List[str], redaction: str,
 def get_db() -> MySQLConnection:
     """ Returns a connector to the database
     """
-    # Retrieving the values of an enviroment variable with default values
-    username = os.environ.get("PERSONAL_DATA_DB_USERNAME", "root")
-    password = os.environ.get("PERSONAL_DATA_DB_PASSWORD", "")
-    host = os.environ.get("PERSONAL_DATA_DB_HOST", "localhost")
-    db_name = os.environ.get("PERSONAL_DATA_DB_NAME")
+    try:
+        # Retrieving the values of an enviroment variable with default values
+        username = os.environ.get("PERSONAL_DATA_DB_USERNAME", "root")
+        password = os.environ.get("PERSONAL_DATA_DB_PASSWORD", "")
+        host = os.environ.get("PERSONAL_DATA_DB_HOST", "localhost")
+        db_name = os.environ.get("PERSONAL_DATA_DB_NAME")
 
-    connection = MySQLConnection(user=username, password=password,
-                                 host=host, database=db_name)
-    return connection
+        connection = MySQLConnection(user=username, password=password,
+                                     host=host, database=db_name)
+        return connection
+    except Exception as e:
+        print(f"{e}")
+        return None
 
 
 class RedactingFormatter(logging.Formatter):
