@@ -32,7 +32,7 @@ def filter_datum(fields: List[str], redaction: str,
     return log
 
 
-def get_db():
+def get_db() -> MySQLConnection:
     """ Returns a connector to the database
     """
     # Retrieving the values of an enviroment variable with default values
