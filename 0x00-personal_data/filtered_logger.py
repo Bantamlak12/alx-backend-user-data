@@ -2,7 +2,8 @@
 """
 Managing user data
 """
-from typing import List
+from typing import List, Tuple
+import logging
 import re
 
 
@@ -24,3 +25,29 @@ def filter_datum(fields: List[str], redaction: str,
         log = re.sub(f'{field}=.*?{separator}',
                      f'{field}={redaction}{separator}', log)
     return log
+
+
+class RedactingFormatter(logging.Formatter):
+    """ Redacting Formatter class
+    """
+    REDACTION = "***"
+    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+    SEPARATOR = ';'
+
+    def __init__(self, fields):
+        """ Initialize
+        parameters:
+        - fields Tuple(str): List of strings
+        """
+        super(RedactingFormatter, self).__init__(self.FORMAT)
+        self.fields = list(fields)
+
+    def format(self, record: logging.LogRecord) -> str:
+        """
+        parameters:
+        - Logging recored
+        """
+        formatted_recored = super().format(record)
+        log = filter_datum(self.fields, self.REDACTION, formatted_recored,
+                           self.SEPARATOR)
+        return log
