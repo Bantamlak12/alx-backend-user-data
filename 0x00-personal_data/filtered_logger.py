@@ -92,3 +92,26 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
 
     return logger
+
+
+def main():
+    """ Read and filter data
+    """
+    logger = get_logger()
+
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+    field_names = [i[0] for i in cursor.description]
+
+    formatted_row = ''
+    for row in cursor:
+        for value, field in zip(row, field_names):
+            formatted_row += f'{field}={value}; '
+        logger.info(formatted_row)
+    cursor.close()
+    db.close()
+
+
+if __name__ == "__main__":
+    main()
