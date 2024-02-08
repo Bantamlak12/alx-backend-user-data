@@ -5,7 +5,7 @@ Encrypts password and check for validity
 import bcrypt
 
 
-def hash_password(password):
+def hash_password(password: str) -> bytes:
     """
     parameter:
     - password: A password to be hashed
