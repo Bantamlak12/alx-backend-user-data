@@ -2,9 +2,11 @@
 """
 Managing user data
 """
+from mysql.connector import MySQLConnection
 from typing import List
 import logging
 import re
+import os
 
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
@@ -28,6 +30,20 @@ def filter_datum(fields: List[str], redaction: str,
         log = re.sub(f'{field}=.*?{separator}',
                      f'{field}={redaction}{separator}', log)
     return log
+
+
+def get_db():
+    """ Returns a connector to the database
+    """
+    # Retrieving the values of an enviroment variable with default values
+    username = os.environ.get("PERSONAL_DATA_DB_USERNAME", "root")
+    password = os.environ.get("PERSONAL_DATA_DB_PASSWORD", "")
+    host = os.environ.get("PERSONAL_DATA_DB_HOST", "localhost")
+    db_name = os.environ.get("PERSONAL_DATA_DB_NAME")
+
+    connection = MySQLConnection(user=username, password=password,
+                                 host=host, database=db_name)
+    return connection
 
 
 class RedactingFormatter(logging.Formatter):
