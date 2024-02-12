@@ -43,10 +43,10 @@ class BasicAuth(Auth):
         """ User credentials
         """
         if decoded_base64_authorization_header is None:
-            return None
+            return (None, None)
         if not isinstance(decoded_base64_authorization_header, str):
-            return None
+            return (None, None)
         if ':' not in decoded_base64_authorization_header:
-            return None
+            return (None, None)
         user_credentials = decoded_base64_authorization_header.split(':')
         return (user_credentials[0], user_credentials[1])
