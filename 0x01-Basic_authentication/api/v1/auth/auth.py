@@ -25,11 +25,10 @@ class Auth:
             return True
         if excluded_paths is None or len(excluded_paths) == 0:
             return True
-        for i in range(len(excluded_paths)):
-            if path in excluded_paths or path in excluded_paths[i][:-1]:
+        for excluded_path in excluded_paths:
+            if path == excluded_paths or path.startswith(excluded_path[:-1]):
                 return False
-            else:
-                return True
+        return True
 
     def authorization_header(self, request=None) -> str:
         """ Generate authentication header.
