@@ -68,3 +68,5 @@ $ pip install Werkzeug==2.0.3
 | 8. Basic - Base64 decode                         | [api/v1/auth/basic_auth.py](./api/v1/auth/basic_auth.py)                                                                         |
 | 9. Basic - User credentials                      | [api/v1/auth/basic_auth.py](./api/v1/auth/basic_auth.py)                                                                         |
 | 10. Basic - User object                          | [api/v1/auth/basic_auth.py](./api/v1/auth/basic_auth.py)                                                                         |
+| 12. Basic - Allow password with ":"              | [api/v1/auth/basic_auth.py](./api/v1/auth/basic_auth.py)                                                                         |
+| 13. Require auth with stars                      | [api/v1/auth/auth.py](./api/v1/auth/auth.py)                                                                                     |
