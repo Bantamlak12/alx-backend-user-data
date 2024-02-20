@@ -83,12 +83,11 @@ def reset_password():
     Get reset password token
     """
     email = request.cookies.get('email')
-    user = AUTH.find_user_by(email)
-    if user:
-        reset_token = AUTH.get_reset_password_token
-        return jsonify({"email": user.email, "reset_token": reset_token}), 200
-
-    abort(403)
+    try:
+        reset_token = AUTH.get_reset_password_token(email)
+        return jsonify({"email": email, "reset_token": reset_token}), 200
+    except ValueError:
+        abort(403)
 
 
 if __name__ == "__main__":
