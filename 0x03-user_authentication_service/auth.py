@@ -150,7 +150,10 @@ class Auth:
         Returns:
         - None
         """
-        user = self._db.find_user_by(reset_token=reset_token)
+        try:
+            user = self._db.find_user_by(reset_token=reset_token)
+        except NoResultFound:
+            raise ValueError
         hashed_password = _hash_password(password)
         user.hashed_password = hashed_password
         user.reset_token = None
