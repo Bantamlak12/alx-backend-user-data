@@ -134,9 +134,8 @@ class Auth:
         """
         try:
             user = self._db.find_user_by(email=email)
-            if user:
-                token = uuid.uuid4()
-                user.reset_token = token
-                return token
+            token = _generate_uuid()
+            user.reset_token = token
+            return token
         except NoResultFound:
             raise ValueError
